@@ -7,8 +7,7 @@ library(shiny)
 library(bslib)
 library(shinyWidgets)
 library(plotly)
-
-can_int_dat_raw <- read_csv("CAN_m_interm_orig.csv",
+can_int_dat_raw <- read_csv("/Users/vaziri/Desktop/Data Analysis Portfolio/Canada_Cancer_App/Canada_Cancer_App/CAN_m_interm_orig.csv",
 col_types = cols(
   country = col_character(),
   year = col_double(),
