@@ -7,6 +7,7 @@ library(shiny)
 library(bslib)
 library(shinyWidgets)
 library(plotly)
+
 can_int_dat_raw <- read_csv("/Users/vaziri/Desktop/Data Analysis Portfolio/Canada_Cancer_App/Canada_Cancer_App/CAN_m_interm_orig.csv",
 col_types = cols(
   country = col_character(),
@@ -119,6 +120,7 @@ can_int_dat_final <- can_int_dat_final %>%
 #### Shiny App Code ####
 ui <-
   fluidPage(
+    theme = bs_theme(version = 5),
     titlePanel("Cancer Mortality in Canada: An Analysis of Age, Sex, and Proportion of Death"),
     fluidRow(
       #Left side
@@ -152,8 +154,25 @@ ui <-
           ),
           plotlyOutput("heatmap2", height = "600px")
     )
+  ),
+  br(),
+  br(),
+  fluidRow(
+    column(
+      width = 12,
+      card(
+        style = "width: 100%;",   
+        card_header(h3("Key Findings 🩺")),
+        card_body(p("• Lung cancer would be the leading cause of cancer death in both males (10,100 deaths) and females (9,300 deaths), accounting for almost one-quarter of all cancer deaths."),
+                  p("• Breast cancer is the second cancer-related cause of death for females (13.2%) whereas for males prostate cancer is the second cause of death (11.1%)."),
+                  p("• Colorectal cancer is the third cancer-related cause of death in both males and females (~10%). Pancreatic cancer is the fourth cause of death in both sexes (~7%)."),
+                  p(strong("Reference:")),
+                  p("https://cancer.ca/en/research/cancer-statistics/cancer-statistics-at-a-glance"))
+        )
+      )
+    )
   )
-)
+
 server <- function (input, output) {
   #left side
   output$heatmap1 <- renderPlotly({
@@ -207,5 +226,5 @@ server <- function (input, output) {
       )
   })
   
-}
+  }
 shinyApp(ui = ui, server = server)
